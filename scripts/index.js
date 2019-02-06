@@ -112,11 +112,11 @@ Index.prototype = {
     const usedNewNames = {};
 
     for (const imageName in allImages) {
-      const newName = nameMap[imageName];
+      const newName = nameMap[imageName] || nameMap[allImages[imageName].toUpperCase()];
 
       if (newName) {
         const newNameUpperCase = newName.toUpperCase();
-        
+
         if (!allImages[newNameUpperCase] && !usedNewNames[newNameUpperCase]) {
           usedNewNames[newNameUpperCase] = newName;
           const fileExt = allImages[imageName].split(".")[1];
