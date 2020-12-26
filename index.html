@@ -1,8 +1,9 @@
 <!DOCTYPE html>
-<html>
+<html lang="eng">
+
 <head>
   <title>Image Converter</title>
-  <script>if (typeof module === 'object') {window.module = module; module = undefined;}</script>
+  <script>if (typeof module === 'object') { window.module = module; module = undefined; }</script>
   <script src="scripts/external/jquery.min.js"></script>
   <script src="scripts/external/jquery.csv.min.js"></script>
   <script src="scripts/fileSystem.js"></script>
@@ -15,87 +16,81 @@
 </head>
 
 <body>
-    <div class="activityHeader">
-      <div>Image Converter</div>
-    </div>
+  <div class="activityHeader">
+    <div>Image Converter</div>
+  </div>
 
-    <div class="card">
-      <div class="cardHeader green">
-        <span>1. Select Locations</span>
+  <div class="card">
+    <div class="cardHeader green">
+      <span>1. Select Locations</span>
+    </div>
+    <div class="cardContent">
+      <div>
+        <span class="prompt">Where are the images?</span>
+        <div class="answer">
+          <span id="spnCurrentDir"></span>
+          <input type="button" value="Browse..." id="btnCurrentDir"></input>
+        </div>
       </div>
-      <div class="cardContent">
-        <div>
-          <span class="prompt">Where are the images currently?</span>
-          <div class="answer">
-            <span id="spnCurrentDir"></span>
-            <input type="button" value="Browse..." id="btnCurrentDir"></input>
-          </div>
-        </div>
-        <div>
-          <span class="prompt">Where should the images be after conversion?</span>
-          <div class="answer">
-            <span id="spnNewDir"></span>
-            <input type="button" value="Browse..." id="btnNewDir"></input>
-          </div>
-        </div>
-        <div>
-          <span class="prompt">Where is the CSV file?</span>
-          <div class="answer">
-            <span id="spnCSVFile"></span>
-            <input type="button" value="Browse..." id="btnCSVFile"></input>
-          </div>
+      <div>
+        <span class="prompt">Where is the CSV file?</span>
+        <div class="answer">
+          <span id="spnCSVFile"></span>
+          <input type="button" value="Browse..." id="btnCSVFile"></input>
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="cardHeader blue">
-        <span>2. Define Columns</span>
-      </div>
-      <div id="divColumns" class="cardContent">
-        <div class="prompt">What columns are in your CSV file?</div>
-        <div class="sortable sortAdd">
-          <div class="sortAddIcon">
-            +
-          </div>
+  <div class="card">
+    <div class="cardHeader blue">
+      <span>2. Define Columns</span>
+    </div>
+    <div id="divColumns" class="cardContent">
+      <div class="prompt">What columns are in your CSV file?</div>
+      <div class="sortable sortAdd">
+        <div class="sortAddIcon">
+          +
         </div>
       </div>
     </div>
+  </div>
 
-    <div class="card">
-      <div class="cardHeader pink">
-        <span>3. Select Output</span>
+  <div class="card">
+    <div class="cardHeader pink">
+      <span>3. Select Output</span>
+    </div>
+    <div class="cardContent">
+      <div>
+        <span class="prompt">What is the current file name format?</span>
+        <span class="format" id="oldFormat"></span>
       </div>
-      <div class="cardContent">
-        <div>
-          <span class="prompt">What is the current file name format?</span>
-          <span class="format" id="oldFormat"></span>
-        </div>
-        <div>
-          <span class="prompt">What should be the new file name format?</span>
-          <span class="format" id="newFormat"></span>
-        </div>
+      <div>
+        <span class="prompt">What should be the new file name format?</span>
+        <span class="format" id="newFormat"></span>
       </div>
     </div>
+  </div>
 
-    <input type="button" value="Convert!" id="btnConvert"></input>
-    <div id="spinner"><img src="images/loading.gif" /></div>
+  <input type="button" value="Convert!" id="btnConvert"></input>
+  <div id="spinner"><img src="images/loading.gif" alt="loading" /></div>
 
-    <template id="tmplColumn">
-      <div class="sortable">
-        <input class="colName" type="text" value="New Column" />
-        <img src="images/x-mark.png" class='remove' />
-      </div>
-    </template>
+  <template id="tmplColumn">
+    <div class="sortable">
+      <input class="colName" type="text" value="New Column" />
+      <img src="images/x-mark.png" class='remove' alt="loading" />
+    </div>
+  </template>
 
-    <template id="tmplFormat">
-      <select class="colSelection"></select>
-      <span class="addFormat">+</span>
-    </template>
+  <template id="tmplFormat">
+    <select class="colSelection"></select>
+    <span class="addFormat">+</span>
+  </template>
 
-    <template id="tmplFormatPiece">
-      <input class='colSep' type='text' />
-      <select class='colSelection'></select>
-    </template>
+  <template id="tmplFormatPiece">
+    <input class='colSep' type='text' />
+    <select class='colSelection'></select>
+  </template>
 </body>
+
 </html>

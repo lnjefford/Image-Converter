@@ -1,12 +1,13 @@
 var dialog = require('electron').remote.dialog;
 var fs = require('fs');
 var path = require('path');
+const { resolve } = require('url');
 
-FileSystem = function () {};
+const FileSystem = function () { };
 
 FileSystem.prototype = {
   promptUserForDirectory: function () {
-    const directories = dialog.showOpenDialog({properties: ["openDirectory"]});
+    const directories = dialog.showOpenDialog({ properties: ["openDirectory"] });
     if (directories) {
       return directories[0];
     }
@@ -15,7 +16,7 @@ FileSystem.prototype = {
   },
 
   promptUserForFile: function () {
-    const files = dialog.showOpenDialog({properties: ["openFile"]});
+    const files = dialog.showOpenDialog({ properties: ["openFile"] });
     if (files) {
       return files[0];
     }
@@ -23,13 +24,23 @@ FileSystem.prototype = {
     return "";
   },
 
-  getFilesInDirectory: async function (directory) {
-    const allFiles = {};
+  fileMap: async function (directory, mapFunction, mapSubDirectories) {
     const allEntries = await this.__fsReadDir(directory);
     for (const oneEntry of allEntries) {
-      if (this.__fsIsFile(directory, oneEntry)) {
-        const fileNameNoExt = oneEntry.split(".")[0];
-        allFiles[fileNameNoExt.toUpperCase()] = oneEntry;
+      if (await this.__fsIsFile(directory, oneEntry)) {
+        await mapFunction(oneEntry, allEntries, directory);
+      } else if (mapSubDirectories && await this.__fsIsDirectory(directory, oneEntry)) {
+        await this.fileMap(path.join(directory, oneEntry), mapFunction, mapSubDirectories);
+      }
+    }
+  },
+
+  getFilesInDirectory: async function (directory) {
+    let allFiles = [];
+    const allEntries = await this.__fsReadDir(directory);
+    for (const oneEntry of allEntries) {
+      if (await this.__fsIsFile(directory, oneEntry)) {
+        allFiles.push(oneEntry);
       }
     }
 
@@ -67,7 +78,7 @@ FileSystem.prototype = {
     return new Promise((resolve, reject) => {
       fs.rename(oldFilePath, newFilePath, (err) => {
         resolve();
-      })
+      });
     });
   },
 
@@ -76,6 +87,14 @@ FileSystem.prototype = {
       fs.lstat(path.join(directory, filePath), (err, stats) => {
         resolve(stats.isFile());
       });
-    })
+    });
+  },
+
+  __fsIsDirectory: function (directory, filePath) {
+    return new Promise((resolve, reject) => {
+      fs.lstat(path.join(directory, filePath), (err, stats) => {
+        resolve(stats.isDirectory());
+      });
+    });
   }
 };

@@ -1,5 +1,5 @@
 {
-  "name": "Converter",
+  "name": "converter",
   "productName": "Converter App",
   "version": "1.0.0",
   "description": "Renames photos from a csv spreadsheet",
@@ -13,10 +13,10 @@
   "author": "Logan Jefford",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^1.8.8",
-    "electron-packager": "^13.0.1"
+    "electron": "^11.1.1",
+    "electron-packager": "^15.2.0"
   },
   "dependencies": {
-    "npm": "^6.7.0"
+    "npm": "^6.14.10"
   }
 }

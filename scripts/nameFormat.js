@@ -1,4 +1,4 @@
-NameFormat = function () {
+const NameFormat = function () {
   this.__$tmplFormat = $("#tmplFormat");
   this.__$tmplFormatPiece = $("#tmplFormatPiece");
 
@@ -85,7 +85,7 @@ NameFormat.prototype = {
   },
 
   __isInt: function (check) {
-    return (typeof check === 'number' && (check%1) === 0);
+    return (typeof check === 'number' && (check % 1) === 0);
   },
 
   __buildNameFromFormat: function (rowData, format) {
