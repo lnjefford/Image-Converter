@@ -13,7 +13,7 @@
   "author": "Logan Jefford",
   "license": "MIT",
   "devDependencies": {
-    "electron": "^11.1.1",
+    "electron": "^15.5.5",
     "electron-packager": "^15.2.0"
   },
   "dependencies": {
